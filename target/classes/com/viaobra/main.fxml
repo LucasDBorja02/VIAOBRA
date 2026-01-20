@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.SpinnerValueFactory?>
+<?import java.lang.String?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.viaobra.ui.MainController">
+
+  <top>
+    <HBox spacing="10" styleClass="topbar">
+      <Label text="VIAOBRA – Viabilidade de Obras" styleClass="title"/>
+      <Region HBox.hgrow="ALWAYS"/>
+      <Button text="Recarregar" onAction="#onReload"/>
+    </HBox>
+  </top>
+
+  <center>
+    <SplitPane dividerPositions="0.33">
+
+      <VBox spacing="12" styleClass="panel">
+        <Label text="Projetos" styleClass="h2"/>
+
+        <TableView fx:id="tblProjects" prefHeight="260">
+          <columns>
+            <TableColumn fx:id="colProjId" text="ID" prefWidth="60"/>
+            <TableColumn fx:id="colProjName" text="Nome" prefWidth="220"/>
+            <TableColumn fx:id="colProjType" text="Tipo" prefWidth="160"/>
+          </columns>
+        </TableView>
+
+        <HBox spacing="10">
+          <ComboBox fx:id="cbTemplate" prefWidth="220">
+            <items>
+              <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Residencial"/>
+                <String fx:value="Industrial"/>
+                <String fx:value="Infraestrutura"/>
+              </FXCollections>
+            </items>
+          </ComboBox>
+          <Button text="Aplicar Template" onAction="#onApplyTemplate" styleClass="primary"/>
+        </HBox>
+
+        <Separator/>
+
+        <Label text="Novo Projeto" styleClass="h2"/>
+
+        <GridPane hgap="10" vgap="10">
+          <Label text="Nome:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtName" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+          <Label text="Tipo:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtType" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+          <Label text="Local:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtLocation" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+          <Label text="Prazo (meses):" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+          <Spinner fx:id="spMonths" GridPane.rowIndex="3" GridPane.columnIndex="1">
+            <valueFactory>
+              <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="600" initialValue="24"/>
+            </valueFactory>
+          </Spinner>
+
+          <Label text="Taxa desc. a.m (%):" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtDiscount" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+          <Label text="Imposto (%):" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtTax" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+          <Label text="Contingência (%):" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtCont" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <Button text="Salvar Projeto" onAction="#onSaveProject" styleClass="primary"/>
+      </VBox>
+
+      <VBox spacing="12" styleClass="panel">
+        <Label text="Itens" styleClass="h2"/>
+
+        <TableView fx:id="tblItems" prefHeight="240">
+          <columns>
+            <TableColumn fx:id="colKind" text="Tipo" prefWidth="90"/>
+            <TableColumn fx:id="colCategory" text="Categoria" prefWidth="160"/>
+            <TableColumn fx:id="colItemName" text="Nome" prefWidth="250"/>
+            <TableColumn fx:id="colValue" text="Valor" prefWidth="120"/>
+            <TableColumn fx:id="colRec" text="Rec." prefWidth="80"/>
+            <TableColumn fx:id="colWindow" text="Meses" prefWidth="90"/>
+          </columns>
+        </TableView>
+
+        <Button text="Remover Selecionado" onAction="#onRemoveItem"/>
+
+        <Separator/>
+
+        <Label text="Adicionar Item" styleClass="h2"/>
+
+        <GridPane hgap="10" vgap="10">
+          <Label text="Tipo:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+          <ComboBox fx:id="cbKind" GridPane.rowIndex="0" GridPane.columnIndex="1">
+            <items>
+              <FXCollections fx:factory="observableArrayList">
+                <String fx:value="COST"/>
+                <String fx:value="REVENUE"/>
+              </FXCollections>
+            </items>
+          </ComboBox>
+
+          <Label text="Categoria:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtCategory" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+          <Label text="Nome:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtItemName" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+          <Label text="Unitário:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtUnit" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+          <Label text="Quantidade:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtQty" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+          <Label text="Recorrência:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+          <ComboBox fx:id="cbRec" GridPane.rowIndex="5" GridPane.columnIndex="1">
+            <items>
+              <FXCollections fx:factory="observableArrayList">
+                <String fx:value="ONCE"/>
+                <String fx:value="MONTHLY"/>
+              </FXCollections>
+            </items>
+          </ComboBox>
+
+          <Label text="Mês início:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+          <Spinner fx:id="spStart" GridPane.rowIndex="6" GridPane.columnIndex="1">
+            <valueFactory>
+              <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="600" initialValue="0"/>
+            </valueFactory>
+          </Spinner>
+
+          <Label text="Mês fim:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+          <Spinner fx:id="spEnd" GridPane.rowIndex="7" GridPane.columnIndex="1">
+            <valueFactory>
+              <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="600" initialValue="0"/>
+            </valueFactory>
+          </Spinner>
+        </GridPane>
+
+        <Button text="Adicionar Item" onAction="#onAddItem" styleClass="primary"/>
+      </VBox>
+
+      <VBox spacing="12" styleClass="panel">
+        <Label text="Etapas e Cenários" styleClass="h2"/>
+
+        <TableView fx:id="tblStages" prefHeight="220">
+          <columns>
+            <TableColumn fx:id="colStageName" text="Etapa" prefWidth="260"/>
+            <TableColumn fx:id="colStageWindow" text="Meses" prefWidth="90"/>
+            <TableColumn fx:id="colStagePct" text="%% CAPEX" prefWidth="90"/>
+          </columns>
+        </TableView>
+
+        <Button text="Remover Etapa" onAction="#onRemoveStage"/>
+
+        <Separator/>
+
+        <Label text="Adicionar Etapa" styleClass="h2"/>
+
+        <GridPane hgap="10" vgap="10">
+          <Label text="Nome:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtStageName" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+          <Label text="Início:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+          <Spinner fx:id="spStageStart" GridPane.rowIndex="1" GridPane.columnIndex="1">
+            <valueFactory>
+              <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="600" initialValue="0"/>
+            </valueFactory>
+          </Spinner>
+
+          <Label text="Fim:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+          <Spinner fx:id="spStageEnd" GridPane.rowIndex="2" GridPane.columnIndex="1">
+            <valueFactory>
+              <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="600" initialValue="0"/>
+            </valueFactory>
+          </Spinner>
+
+          <Label text="%% do CAPEX:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtStagePct" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <Button text="Adicionar Etapa" onAction="#onAddStage" styleClass="primary"/>
+
+        <Separator/>
+
+        <Label text="Cenário" styleClass="h2"/>
+
+        <GridPane hgap="10" vgap="10">
+          <Label text="Custos (%):" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtCostMult" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+          <Label text="Receitas (%):" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+          <TextField fx:id="txtRevMult" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+          <Label text="Atraso receita (meses):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+          <Spinner fx:id="spDelay" GridPane.rowIndex="2" GridPane.columnIndex="1">
+            <valueFactory>
+              <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="120" initialValue="0"/>
+            </valueFactory>
+          </Spinner>
+        </GridPane>
+
+        <Button text="Calcular Viabilidade" onAction="#onCalc" styleClass="primary"/>
+
+        <Label text="Resultado" styleClass="h2"/>
+        <TextArea fx:id="txtResult" prefRowCount="10" wrapText="true"/>
+      </VBox>
+
+    </SplitPane>
+  </center>
+</BorderPane>

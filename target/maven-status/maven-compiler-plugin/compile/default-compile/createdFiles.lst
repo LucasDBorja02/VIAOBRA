@@ -1,0 +1,15 @@
+com\viaobra\repo\StageRepo.class
+com\viaobra\ui\MainController.class
+com\viaobra\model\Project.class
+com\viaobra\model\Stage.class
+com\viaobra\service\TemplateCatalog.class
+com\viaobra\MainApp.class
+com\viaobra\service\FeasibilityService$Result.class
+com\viaobra\repo\LineItemRepo.class
+com\viaobra\service\FeasibilityService.class
+com\viaobra\model\Scenario.class
+com\viaobra\repo\ProjectRepo.class
+com\viaobra\db\DB.class
+com\viaobra\model\LineType.class
+com\viaobra\db\Schema.class
+com\viaobra\model\LineItem.class
